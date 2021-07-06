@@ -3,6 +3,7 @@
 calib_title = "Al_2O_3 polycrystal (26 Jun 2021), collimation 15'-40'-40'-40'"
 
 Mono_tau=1.87325   #Tau for PG(002)
+#Mono_tau=1.8292   #Tau for Heusler
 
 datafile1='PONTA_exp0003_scan0021.dat'
 StrongestPeak = 6500.0
