@@ -16,11 +16,11 @@ print N
 
 if(abs(TTH[1])-abs(TTH[2])>0){
     do for [i=1:N]{
-        print abs(TTH[N-i+1]), Int[N-i+1]
+        print abs(TTH[N-i+1]),"  ",int(Int[N-i+1])
     }
 }
 else{
     do for [i=1:N]{
-        print abs(TTH[i]), Int[i]
+        print abs(TTH[i]),"  ",int(Int[i])
     }
 }
