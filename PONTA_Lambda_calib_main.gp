@@ -18,6 +18,7 @@ load 'plot_profile.gp'
 load 'peakfit_Al2O3_13.7meV.gp'
 load 'calc_lambda.gp'
 load 'resolution.gp'
+load 'RIETAN_output.gp'
 
 
 set print "calibration_results.txt" 
