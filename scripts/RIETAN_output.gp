@@ -11,7 +11,7 @@ array Int[N]
 stats datafile1 using (TTH[$0+1] = $2, Int[$0+1] = $5, 0) nooutput
 
 set print "Al2O3.int" 
-print "GENERAL"
+print "GENERAL$"
 print N
 
 if(abs(TTH[1])-abs(TTH[2])>0){
