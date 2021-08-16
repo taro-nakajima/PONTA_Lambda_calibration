@@ -9,16 +9,20 @@ datafile1='PONTA_exp0003_scan0021.dat'
 StrongestPeak = 6500.0
 label_Int = "Intensity (counts/30 s)"
 
+#Al2O3 lattice constants (updated on 7th Jul 2021)
+a_lat=4.75439
+c_lat=12.99080
+
 #=== initial guesses of tth_ofst and Lambda ======
 tth_ofst=0.2
 Lambda=2.444
 #=================================================
 
-load 'plot_profile.gp'
-load 'peakfit_Al2O3_13.7meV.gp'
-load 'calc_lambda.gp'
-load 'resolution.gp'
-load 'RIETAN_output.gp'
+load './scripts/plot_profile.gp'
+load './scripts/peakfit_Al2O3_13.7meV.gp'
+load './scripts/calc_lambda.gp'
+load './scripts/resolution.gp'
+load './scripts/RIETAN_output.gp'
 
 
 set print "calibration_results.txt" 

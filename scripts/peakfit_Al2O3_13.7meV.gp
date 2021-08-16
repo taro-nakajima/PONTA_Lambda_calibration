@@ -1,9 +1,5 @@
 #datafile1='PONTA_exp0003_scan0021.dat'
 
-#Al2O3 lattice constants
-a_lat=4.75439
-c_lat=12.99080
-
 array as[3]
 array bs[3]
 array cs[3]

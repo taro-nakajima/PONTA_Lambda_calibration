@@ -1,7 +1,6 @@
-tth_ofst=0.3
 
 set term postscript eps enhanced color "Helvetica" 18
-set out 'Lambda.ps'
+set out '2theta_offset.ps'
 
 set style line 1 lt 1 lc "#ff0000" lw 2 pt 7 ps 1.5
 set style line 11 lt 1 lc "#000000" lw 2 pt 65 ps 1.5
