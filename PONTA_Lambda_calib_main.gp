@@ -1,11 +1,11 @@
 #gnuplot macro for Lmabda calibration using Al2O3 at 13.7 meV
 
-calib_title = "Al_2O_3 polycrystal (26 Jun 2021), collimation 15'-40'-40'-40'"
+calib_title = "Al_2O_3 polycrystal (12 Oct. 2021), collimation 40'-40'-40'-40'"
 
 Mono_tau=1.87325   #Tau for PG(002)
 #Mono_tau=1.8292   #Tau for Heusler
 
-datafile1='PONTA_exp0003_scan0021.dat'
+datafile1='PONTA_exp0023_scan0027.dat'
 StrongestPeak = 6500.0
 label_Int = "Intensity (counts/30 s)"
 
@@ -15,11 +15,16 @@ c_lat=12.99080
 
 #=== initial guesses of tth_ofst and Lambda ======
 tth_ofst=0.2
-Lambda=2.444
+#Lambda=2.444   #initial guess for 13.7 meV
+Lambda=2.359   #initial guess for 14.7 meV
+#Lambda=1.55   #initial guess for 34.05 meV
 #=================================================
 
+tth_range=1.5
+
+
 load './scripts/plot_profile.gp'
-load './scripts/peakfit_Al2O3_13.7meV.gp'
+load './scripts/peakfit_Al2O3.gp'
 load './scripts/calc_lambda.gp'
 load './scripts/resolution.gp'
 load './scripts/RIETAN_output.gp'

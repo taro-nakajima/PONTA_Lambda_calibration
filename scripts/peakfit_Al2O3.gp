@@ -1,4 +1,3 @@
-#datafile1='PONTA_exp0003_scan0021.dat'
 
 array as[3]
 array bs[3]
@@ -33,15 +32,15 @@ set ylabel label_Int
 set print "fit_results.txt" 
 print  "#H K L d(A) BG BG_err A A_err tth tth_err HWHM HWHM_err"
 
-F(x)=BG+A*exp(-log(2)*(x-tth)**2.0/HWHM**2.0)
+F(x)=BG+A*exp(-log(2.0)*(x-tth)**2.0/HWHM**2.0)
+F2(x)=F(x)+A2*exp(-log(2.0)*(x-tth2)**2.0/HWHM2**2.0)
 
-tth_range=1.5
 HWHM=0.2
 BG=50.0
 
+
 ########################## 10-2 reflection ###########
 A=0.12*StrongestPeak
-tth=41.0
 H=1.0
 K=0.0
 L=-2.0
@@ -49,17 +48,17 @@ do for [i=1:3]{
     Q[i]=H*as[i]+K*bs[i]+L*cs[i]
 }
 d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+tth=asin(Lambda/(2.0*d))*2.0/pi*180
 fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
 print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
 set term png
-set out "A2_-41.0_10-2.png"
+set out "Peak_10-2.png"
 set title calib_title."\n10-2 reflection"
 set xrange[tth-tth_range:tth+tth_range]
 plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 10-4 reflection ###########
 A=0.12*StrongestPeak
-tth=57.0
 H=1.0
 K=0.0
 L=4.0
@@ -67,26 +66,26 @@ do for [i=1:3]{
     Q[i]=H*as[i]+K*bs[i]+L*cs[i]
 }
 d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+tth=asin(Lambda/(2.0*d))*2.0/pi*180
 fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
 print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-set out "A2_-57.1_104.png"
+set out "Peak_104.png"
 set title calib_title."\n104 reflection"
 set xrange[tth-tth_range:tth+tth_range]
 plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
-########################## 2-10 reflection ###########
+########################## 2-10 reflection ########### very weak!!
 #A=0.02*StrongestPeak
 #tth=61.6
 #fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
 #print  2,-1,0,2.377285,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-#set out "A2_-61.6_2-10.png"
+#set out "Peak_2-10.png"
 #set xrange[tth-tth_range:tth+tth_range]
 #plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
-########################## 006 reflection ###########
+########################## 006 and 2-13 reflections ###########
 A=0.3*StrongestPeak
 A=2000.0
-tth=68.50
 H=0.0
 K=0.0
 L=6.0
@@ -94,29 +93,24 @@ do for [i=1:3]{
     Q[i]=H*as[i]+K*bs[i]+L*cs[i]
 }
 d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
-fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
-print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-set out "A2_-68.6_006.png"
-set title calib_title."\n006 reflection"
-set xrange[tth-tth_range:tth+tth_range]
-plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
+tth=asin(Lambda/(2.0*d))*2.0/pi*180
 
-########################## 2-13 reflection ###########
-A=1.0*StrongestPeak
-tth=71.60
-H=2.0
-K=-1.0
-L=3.0
+A2=1.0*StrongestPeak
+H2=2.0
+K2=-1.0
+L2=3.0
 do for [i=1:3]{
-    Q[i]=H*as[i]+K*bs[i]+L*cs[i]
+    Q[i]=H2*as[i]+K2*bs[i]+L2*cs[i]
 }
-d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
-fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
+d2=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+tth2=asin(Lambda/(2.0*d2))*2.0/pi*180
+fit [tth-tth_range:tth2+tth_range] F2(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM,A2,tth2,HWHM2
 print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-set out "A2_-71.6_213.png"
-set title calib_title."\n213 reflection"
-set xrange[tth-tth_range:tth+tth_range]
-plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
+print  H2,K2,L2,d2,BG,BG_err,A2,A2_err,tth2,tth2_err,HWHM2,HWHM2_err
+set out "Peak_006_213.png"
+set title calib_title."\n006 and 213 reflections"
+set xrange[tth-tth_range:tth2+tth_range]
+plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F2(x) t 'fit'
 
 ########################## 20-4 reflection ###########
 A=0.12*StrongestPeak
@@ -128,29 +122,30 @@ do for [i=1:3]{
     Q[i]=H*as[i]+K*bs[i]+L*cs[i]
 }
 d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+tth=asin(Lambda/(2.0*d))*2.0/pi*180
 fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
 print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-set out "A2_-89.0_20-4.png"
+set out "Peak_20-4.png"
 set title calib_title."\n20-4 reflection"
 set xrange[tth-tth_range:tth+tth_range]
 plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 2-16 reflection ###########
-A=0.46*StrongestPeak
-tth=99.20
-H=2.0
-K=-1.0
-L=6.0
-do for [i=1:3]{
-    Q[i]=H*as[i]+K*bs[i]+L*cs[i]
-}
-d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
-fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
-print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-set out "A2_-99.2_2-16.png"
-set title calib_title."\n2-16 reflection"
-set xrange[tth-tth_range:tth+tth_range]
-plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
+#A=0.46*StrongestPeak
+#tth=99.20
+#H=2.0
+#K=-1.0
+#L=6.0
+#do for [i=1:3]{
+#    Q[i]=H*as[i]+K*bs[i]+L*cs[i]
+#}
+#d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+#fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
+#print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
+#set out "Peak_2-16.png"
+#set title calib_title."\n2-16 reflection"
+#set xrange[tth-tth_range:tth+tth_range]
+#plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 3-11 reflection ###########
 #A=0.06*StrongestPeak
@@ -164,7 +159,7 @@ plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 #d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
 #fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
 #print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-#set out "A2_-104.1_3-11.png"
+#set out "Peak_3-11.png"
 #set title calib_title."\n3-11 reflection"
 #set xrange[tth-tth_range:tth+tth_range]
 #plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
