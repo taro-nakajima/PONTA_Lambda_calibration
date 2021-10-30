@@ -85,7 +85,6 @@ plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 006 and 2-13 reflections ###########
 A=0.3*StrongestPeak
-A=2000.0
 H=0.0
 K=0.0
 L=6.0
@@ -114,7 +113,6 @@ plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F2(x) t 'fit'
 
 ########################## 20-4 reflection ###########
 A=0.12*StrongestPeak
-tth=89.00
 H=2.0
 K=0.0
 L=-4.0
@@ -131,21 +129,21 @@ set xrange[tth-tth_range:tth+tth_range]
 plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 2-16 reflection ###########
-#A=0.46*StrongestPeak
-#tth=99.20
-#H=2.0
-#K=-1.0
-#L=6.0
-#do for [i=1:3]{
-#    Q[i]=H*as[i]+K*bs[i]+L*cs[i]
-#}
-#d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
-#fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
-#print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
-#set out "Peak_2-16.png"
-#set title calib_title."\n2-16 reflection"
-#set xrange[tth-tth_range:tth+tth_range]
-#plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
+A=0.46*StrongestPeak
+H=2.0
+K=-1.0
+L=6.0
+do for [i=1:3]{
+    Q[i]=H*as[i]+K*bs[i]+L*cs[i]
+}
+d=abs(2.0*pi/sqrt(Q[1]**2.0+Q[2]**2.0+Q[3]**2.0))
+tth=asin(Lambda/(2.0*d))*2.0/pi*180
+fit [tth-tth_range:tth+tth_range] F(x) datafile1 using (abs($2)):5:(sqrt($5)) yerror via BG,A,tth,HWHM
+print  H,K,L,d,BG,BG_err,A,A_err,tth,tth_err,HWHM,HWHM_err
+set out "Peak_2-16.png"
+set title calib_title."\n2-16 reflection"
+set xrange[tth-tth_range:tth+tth_range]
+plot datafile1 using (abs($2)):5:(sqrt($5)) w yer t 'obs',F(x) t 'fit'
 
 ########################## 3-11 reflection ###########
 #A=0.06*StrongestPeak
