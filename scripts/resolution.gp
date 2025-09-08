@@ -29,24 +29,27 @@ do for [i=1:N]{
 set yrange[0:]
 set xrange[0:]
 
-set term postscript eps enhanced color "Helvetica" 18
-set out 'Resolution.ps'
+#set term postscript eps enhanced color "Helvetica" 18
+#set out 'Resolution.ps'
+
+set term png
+set out 'Resolution.png'
 
 set style line 1 lt 1 lc "#ff0000" lw 2 pt 7 ps 1.5
 set style line 11 lt 1 lc "#000000" lw 2 pt 65 ps 1.5
 
 set size ratio 0.6  # ratio r = height/width
 
-set encoding iso_8859_1
+#set encoding iso_8859_1
 
-set title calib_title."\n {/Symbol l}=".sprintf("%6.4f",Lambda)." {/Helvetica \305}, 2{/Symbol q}_{ofst}=".sprintf("%6.4f",tth_ofst)." deg." 
+#set title calib_title."\n {/Symbol l}=".sprintf("%6.4f",Lambda)." {/Helvetica \305}, 2{/Symbol q}_{ofst}=".sprintf("%6.4f",tth_ofst)." deg." 
+set title calib_title."\n lambda=".sprintf("%6.4f",Lambda)." A, 2th_{ofst}=".sprintf("%6.4f",tth_ofst)." deg." 
 
-set xlabel 'Q ({/Helvetica \305}^{-1})' font "Helvetica,22"
-set ylabel 'FWHM ({/Helvetica \305}^{-1})' font "Helvetica,22"
+set xlabel 'Q (A^{-1})' font "Arial,22"
+set ylabel 'FWHM (A^{-1})' font "Arial,22"
 
-plot "resolution.txt" u 5:6:7 w yer ls 1 not,"resolution.txt" u 5:6 w p ls 11 not
+plot "resolution.txt" u 5:6:7 w yer ls 1 not
 
-set term X
 set auto x
 set auto y
 set out
